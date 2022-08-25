@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         jQuery Hook
-// @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/020-jQuery-hook
-// @version      0.2
+// @namespace    https://github.com/CC11001100/jQuery-hook
+// @version      0.3
 // @description  用于快速定位使用jQuery绑定到DOM元素上的事件的代码的真实位置，辅助逆向分析。
-// @document     https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/020-jQuery-hook/README.md
+// @document     https://github.com/CC11001100/jQuery-hook
 // @author       CC11001100
 // @match       *://*/*
 // @run-at      document-start
@@ -11,9 +11,10 @@
 // ==/UserScript==
 (() => {
 
+    // 尽量唯一有区分度即可
     const globalUniqPrefix = "cc11001100";
 
-    // 在第一次设置jquery的时候添加Hook
+    // 在第一次设置jquery的时候添加Hook，jQuery初始化的时候会添加一个名为$的全局变量
     Object.defineProperty(window, "$", {
         set: $ => {
 
