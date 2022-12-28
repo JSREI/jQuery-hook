@@ -61,6 +61,8 @@ cc11001100_click_5
 
 # 六、问题反馈
 
-如果发现有Hook不到的情况，请在issue中反馈。
+如果发现有Hook不到的情况，请在[issue](https://github.com/CC11001100/jQuery-hook/issues)中反馈。
 
-
+# 七、TODO
+1. 对jQuery发出的请求进行监控和Hook 
+如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
