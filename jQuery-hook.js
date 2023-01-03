@@ -8,17 +8,114 @@
 // @match       *://*/*
 // @run-at      document-start
 // @grant       none
-// @require     file://D:\workspace\jQuery-hook\jQuery-hook.js
 // ==/UserScript==
 (() => {
 
-    // 尽量唯一有区分度即可，您可自定义为自己的ID
+    // 可自定义的一个变量前缀，尽量唯一有区分度即可，可以替换为为自己的ID
     const globalUniqPrefix = "cc11001100";
 
     // 用于控制打印在控制台的消息的大小
     const consoleLogFontSize = 12;
 
-    // 在第一次设置jquery的时候添加Hook，jQuery初始化的时候会添加一个名为$的全局变量，在添加这个变量的时候对其动一些手脚
+    // ----------------------------------------------- -----------------------------------------------------------------
+
+    /**
+     * 用于统一构建待颜色的日志输出，采用构建者模式
+     *
+     * from: https://github.com/JSREI/js-color-log
+     */
+    class ColorLogBuilder {
+
+        /**
+         * 创建一条日志，调用show()方法将其打印到控制台
+         *
+         * 因为认为字体颜色是没有区分度的，所以这里就不支持指定字体的颜色，字体恒定为黑色
+         *
+         * @param normalTextBackgroundColor {string} 此条日志中普通文本的背景色
+         * @param highlightTextBackgroundColor {string} 此条日志中要高亮的文本的背景色
+         * @param _consoleLogFontSize {string} 日志的大小
+         */
+        constructor(normalTextBackgroundColor = "#FFFFFF", highlightTextBackgroundColor = "#FFFFFF", _consoleLogFontSize = consoleLogFontSize) {
+            this.normalTextBackgroundColor = normalTextBackgroundColor;
+            this.highlightTextBackgroundColor = highlightTextBackgroundColor;
+            this.consoleLogFontSize = _consoleLogFontSize;
+            this.messageArray = [];
+
+            // 每天日志都使用统一的前缀，在创建的时候就设置好
+            // 先是一个日期，然后是插件的名字，以便与其它工具的输出相区分
+            // 此处的统一前缀自行修改，因为使用的时候都是拷贝过去的
+            this.append(`[${this.nowTimeString()}] `).append("jQuery Hook: ");
+        }
+
+        /**
+         *  往日志中追加普通类型的信息
+         *
+         * @param msg {string}
+         * @return {ColorLogBuilder}
+         */
+        append(msg) {
+            this.appendNormal(msg);
+            return this;
+        }
+
+        /**
+         * 往日志中追加普通类型的信息
+         *
+         * @param msg {string}
+         * @return {ColorLogBuilder}
+         */
+        appendNormal(msg) {
+            this.messageArray.push(`color: black; background: ${this.normalTextBackgroundColor}; font-size: ${this.consoleLogFontSize}px;`);
+            this.messageArray.push(msg);
+            return this;
+        }
+
+        /**
+         * 往日志中追加高亮的内容
+         *
+         * @param msg {string}
+         */
+        appendHighlight(msg) {
+            this.messageArray.push(`color: black; background: ${this.highlightTextBackgroundColor}; font-size: ${this.consoleLogFontSize}px; font-weight: bold;`);
+            this.messageArray.push(msg);
+            return this;
+        }
+
+        /**
+         * 把当前这条日志打印出来
+         */
+        show() {
+            console.log(this.genFormatArray(this.messageArray), ...this.messageArray);
+        }
+
+        nowTimeString(fmt = "yyyy-MM-dd HH:mm:ss") {
+            const now = new Date();
+            let o = {
+                "M+": now.getMonth() + 1, "d+": now.getDate(), //日
+                "H+": now.getHours(), //小时
+                "m+": now.getMinutes(), //分
+                "s+": now.getSeconds(), //秒
+                "q+": Math.floor((now.getMonth() + 3) / 3), //季度
+                "S": now.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (now.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (let k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+
+        genFormatArray(messageAndStyleArray) {
+            const formatArray = [];
+            for (let i = 0, end = messageAndStyleArray.length / 2; i < end; i++) {
+                formatArray.push("%c%s");
+            }
+            return formatArray.join("");
+        }
+
+    }
+
+    // ----------------------------------------------- -----------------------------------------------------------------
+
+    // 在第一次初始化jQuery的时候添加Hook，jQuery初始化的时候会添加一个名为$的全局变量，在添加这个变量的时候对其动一些手脚
     Object.defineProperty(window, "$", {
         set: $ => {
 
@@ -26,22 +123,12 @@
             try {
                 addHook($);
             } catch (e) {
-                const valueStyle = `color: black; background: #E50000; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-                const normalStyle = `color: black; background: #FF6766; font-size: ${consoleLogFontSize}px;`;
-
-                const message = [
-
-                    normalStyle, now(),
-
-                    normalStyle, "jQuery Monitor: ",
-
-                    normalStyle, "add hook error, msg = ",
-
-                    valueStyle, `${e}`,];
-                console.log(genFormatArray(message), ...message);
+                new ColorLogBuilder("#FF6766", "#E50000")
+                    .append("add hook error, msg = ")
+                    .appendHighlight(e)
+                    .show();
             }
-
-            // 删除set描述符拦截，恢复正常赋值，假装啥都没发生过...
+            // 删除set描述符拦截，恢复正常赋值，假装啥都没发生过，但实际上已经狸猫换太子了...
             delete window["$"];
             window["$"] = $;
         }, configurable: true
@@ -57,17 +144,9 @@
 
         addAjaxHook($);
 
-        const valueStyle = `color: black; background: #669934; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-        const normalStyle = `color: black; background: #65CC66; font-size: ${consoleLogFontSize}px;`;
-
-        const message = [
-
-            normalStyle, now(),
-
-            normalStyle, "jQuery Monitor: ",
-
-            normalStyle, "设置jQuery Hook成功！",];
-        console.log(genFormatArray(message), ...message);
+        new ColorLogBuilder("#65CC66", "#669934")
+            .append("在当前页面上检测到jQuery的加载，添加jQuery Hook完成")
+            .show();
     }
 
     /**
@@ -77,37 +156,20 @@
      */
     function addAjaxHook($) {
         if (!$["ajaxSetup"]) {
-            const valueStyle = `color: black; background: #E50000; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-            const normalStyle = `color: black; background: #FF6766; font-size: ${consoleLogFontSize}px;`;
-
-            const message = [
-
-                normalStyle, now(),
-
-                normalStyle, "jQuery Monitor: ",
-
-                normalStyle, "$不是jQuery对象，没有 ajaxSetup 属性，因此不添加Ajax Hook",];
-            console.log(genFormatArray(message), ...message);
+            new ColorLogBuilder("#FF6766", "#E50000")
+                .appendHighlight("$不是jQuery对象，没有 ajaxSetup 属性，因此不添加Ajax Hook")
+                .show();
             return;
         }
         const oldAjaxSetUp = $.ajaxSetup;
         $.ajaxSetup = function () {
             try {
                 if (arguments.length === 1) {
-                    const valueStyle = `color: black; background: #669934; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-                    const normalStyle = `color: black; background: #65CC66; font-size: ${consoleLogFontSize}px;`;
-
-                    const message = [
-
-                        normalStyle, now(),
-
-                        normalStyle, "jQuery Monitor: ",
-
-                        normalStyle, "检测到ajaxSetup全局拦截器设置请求参数",
-
-                        normalStyle, `, code location = ${getCodeLocation("$.ajaxSetup")}`];
-                    console.log(genFormatArray(message), ...message);
-                    console.log(arguments);
+                    const {formatEventName, eventFuncGlobalName} = storeToWindow("ajaxSetup", arguments[0]);
+                    new ColorLogBuilder("#65CC66", "#669934")
+                        .append("检测到ajaxSetup全局拦截器设置请求参数，已经挂载到全局变量：")
+                        .appendHighlight(eventFuncGlobalName)
+                        .show();
                 }
             } catch (e) {
                 console.error(e);
@@ -123,17 +185,9 @@
      */
     function addEventHook($) {
         if (!$["fn"]) {
-            const valueStyle = `color: black; background: #E50000; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-            const normalStyle = `color: black; background: #FF6766; font-size: ${consoleLogFontSize}px;`;
-
-            const message = [
-
-                normalStyle, now(),
-
-                normalStyle, "jQuery Monitor: ",
-
-                normalStyle, "$不是jQuery对象，没有 fn 属性，因此不添加 Event Hook",];
-            console.log(genFormatArray(message), ...message);
+            new ColorLogBuilder("#FF6766", "#E50000")
+                .appendHighlight("$不是jQuery对象，没有 fn 属性，因此不添加 Event Hook")
+                .show();
             return;
         }
 
@@ -145,17 +199,9 @@
                 try {
                     setEventFunctionNameToDomObjectAttribute(this, eventName, arguments[0]);
                 } catch (e) {
-                    const valueStyle = `color: black; background: #E50000; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-                    const normalStyle = `color: black; background: #FF6766; font-size: ${consoleLogFontSize}px;`;
-
-                    const message = [
-
-                        normalStyle, now(),
-
-                        normalStyle, "jQuery Monitor: ",
-
-                        normalStyle, `为jQuery添加${eventName}类型的事件的Hook时发生错误： ${e}`,];
-                    console.log(genFormatArray(message), ...message);
+                    new ColorLogBuilder("#FF6766", "#E50000")
+                        .appendHighlight(`为jQuery添加${eventName}类型的事件的Hook时发生错误： ${e}`)
+                        .show();
                 }
                 return old.apply(this, arguments);
             }
@@ -178,17 +224,9 @@
                     setEventFunctionNameToDomObjectAttribute(this, eventName, eventFunction);
                 }
             } catch (e) {
-                const valueStyle = `color: black; background: #E50000; font-size: ${consoleLogFontSize}px; font-weight: bold;`;
-                const normalStyle = `color: black; background: #FF6766; font-size: ${consoleLogFontSize}px;`;
-
-                const message = [
-
-                    normalStyle, now(),
-
-                    normalStyle, "jQuery Monitor: ",
-
-                    normalStyle, `为jQuery添加on方法的Hook时发生错误： ${e}`,];
-                console.log(genFormatArray(message), ...message);
+                new ColorLogBuilder("#FF6766", "#E50000")
+                    .appendHighlight(`为jQuery添加on方法的Hook时发生错误： ${e}`)
+                    .show();
             }
             return fnOnHolder.apply(this, arguments);
         }
@@ -297,21 +335,6 @@
         const id = (addressIdGeneratorMap[eventName] || 0) + 1;
         addressIdGeneratorMap[eventName] = id;
         return `${globalUniqPrefix}__${eventName}__${id}`;
-    }
-
-    // ----------------------------------------------- -----------------------------------------------------------------
-
-    function now() {
-        // 东八区专属...
-        return "[" + new Date(new Date().getTime() + 1000 * 60 * 60 * 8).toJSON().replace("T", " ").replace("Z", "") + "] ";
-    }
-
-    function genFormatArray(messageAndStyleArray) {
-        const formatArray = [];
-        for (let i = 0, end = messageAndStyleArray.length / 2; i < end; i++) {
-            formatArray.push("%c%s");
-        }
-        return formatArray.join("");
     }
 
     // ----------------------------------------------- -----------------------------------------------------------------
