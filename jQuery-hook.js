@@ -289,7 +289,10 @@
      */
     function safeSymbol(name) {
         const replaceMap = {
-            ".": "_dot_", "$": "_dollar_", "-": "_dash_"
+            ".": "_dot_",
+            "$": "_dollar_",
+            "-": "_dash_",
+            " ": "_whitespace_"
         };
         let newName = "";
         for (let c of name) {
