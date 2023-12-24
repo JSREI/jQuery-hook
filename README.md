@@ -12,7 +12,7 @@ jQuery曾经引领过一个时代，虽然现已没落，但是很多遗留下�
 
 # 三、安装
 
-## 3.1 从油猴商店安装
+## 3.1 从油猴商店安装（推荐方式）
 
 此脚本已在油猴商店上架，点击下面的链接，直接在油猴商店安装快捷方便，并且后续此脚本有版本更新油猴插件会自动提示升级：  
 [https://greasyfork.org/zh-CN/scripts/435556-jquery-hook](https://greasyfork.org/zh-CN/scripts/435556-jquery-hook)
@@ -30,9 +30,9 @@ https://github.com/JSREI/jQuery-hook/blob/main/jQuery-hook.js
 # 四、使用案例
 随便找一个使用jQuery开发的网站，比如这个：  
 [http://wap.wfu.edu.cn:8001/authz/login/slogin](http://wap.wfu.edu.cn:8001/authz/login/slogin)  
-尝试触发登录请求，会发现它的登录密码是被加密的：
+尝试触发登录请求，会发现它发出的登录请求中密码对应的参数mm是被加密传输的：
 ![](markdown-images/README_images/69f2a236.png)
-通过这里可以看到，是doc类型的请求：
+通过这里可以看到，发出的请求是doc类型的请求，看起来是使用表单提交的方式发送的请求：
 ![](markdown-images/README_images/d4bf6528.png)
 那么按照我们以往的js逆向经验来推测，应该是单击“登录”按钮的时候触发了按钮绑定的事件，js对明文密码加密替换然后提交表单的，
 因此如果能定位到按钮的事件则很快就能定位到加密代码的位置，查看这个按钮绑定的事件，跟进去：  
