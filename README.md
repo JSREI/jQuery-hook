@@ -6,54 +6,89 @@
 
 # 二、为什么会有这个？
 
-jQuery曾经引领过一个时代，虽然现已没落，但是很多遗留下来的系统都用到了jQuery，其市场还是比较大的， 而笔者在做js逆向的时候发现用Chrome自带的查看元素绑定事件的功能看到的值是被jQuery包裹着一层的代码：
+jQuery曾经引领过一个时代，虽然现已没落，但是很多遗留下来的系统都用到了jQuery，其市场还是比较大的， 而笔者在做js逆向的时候发现用Chrome自带的开发者工具查看元素绑定事件的功能，看到的值是被jQuery包裹着一层的代码：
 ![](markdown-images/README_images/160b9e7a.png)
-不容易定位到事件代码逻辑真实代码所在的位置， 这个小脚本就是解决这个问题的，提供一种简单有效的方式能够快速找到jQuery事件对应的真实代码的位置。
+这是因为jQuery在原生的DOM元素事件机制上自己定义了一套事件管理机制，这套机制为开发者带来了便利，比如可以很方便的对某个DOM元素的相同事件绑定多个回调方法，但同时也为逆向带来不方便，逆向者不太容易能定位到DOM事件代码逻辑真实代码所在的位置，而这个小脚本就是解决这个问题的，**提供了一种简单有效的方法能够快速定位到jQuery DOM元素事件对应的真实代码的位置**。
 
 # 三、安装
-已在油猴商店上架：  
+
+## 3.1 从油猴商店安装
+
+此脚本已在油猴商店上架，点击下面的链接，直接在油猴商店安装快捷方便，并且后续此脚本有版本更新油猴插件会自动提示升级：  
 [https://greasyfork.org/zh-CN/scripts/435556-jquery-hook](https://greasyfork.org/zh-CN/scripts/435556-jquery-hook)
+
+## 3.2 手动安装
+
+手动复制此仓库的main分支的根目录下的jQuery-hook.js文件到您自己的油猴插件新建一个脚本粘贴代码即可： 
+
+```
+https://github.com/JSREI/jQuery-hook/blob/main/jQuery-hook.js
+```
+
+注意此种方式后续此脚本有版本更新油猴插件不会自动提醒升级，不过您可以star/watch本仓库关注后续更新。
 
 # 四、使用案例
 随便找一个使用jQuery开发的网站，比如这个：  
 [http://wap.wfu.edu.cn:8001/authz/login/slogin](http://wap.wfu.edu.cn:8001/authz/login/slogin)  
 尝试触发登录请求，会发现它的登录密码是被加密的：
 ![](markdown-images/README_images/69f2a236.png)
-通过这里可以看到，是doc请求：
+通过这里可以看到，是doc类型的请求：
 ![](markdown-images/README_images/d4bf6528.png)
-那么按照经验推测， 应该是单击登录按钮的时候js对明文密码加密替换然后提交表单的，
+那么按照我们以往的js逆向经验来推测，应该是单击“登录”按钮的时候触发了按钮绑定的事件，js对明文密码加密替换然后提交表单的，
 因此如果能定位到按钮的事件则很快就能定位到加密代码的位置，查看这个按钮绑定的事件，跟进去：  
 ![](markdown-images/README_images/160b9e7a.png)  
-会发现会陷入到jQuery的闭包中无法自拔：
+然后会陷入到jQuery的闭包中无法自拔，这是因为jQuery自己封装了一套事件机制不太容易逆向：
 ![](markdown-images/README_images/bb826340.png)  
-油猴脚本开启本插件jQuery hook，刷新页面，如果加载成功控制台会有提示：  
+此时就是这个脚本发挥作用的时候了，油猴插件开启本脚本jQuery hook，刷新页面重新加载以便脚本能够注入到页面，如果加载成功控制台会有提示：  
 ![](markdown-images/README_images/90f8932a.png)  
-再次对登录按钮检查元素，不必理睬右边Chrome给出的的绑定事件， 注意Elements面板中使用jQuery绑定的事件都已经以属性的方式展示出来了：
+再次对登录按钮检查元素，不必理睬右边Event Listener里Chrome给出的的绑定事件， 注意左边Elements面板中使用jQuery绑定的事件都已经以元素属性的方式展示出来了：
 ![](markdown-images/README_images/a39e269d.png)  
 比如：
+
 ```text
 cc11001100-jquery-click-event-function="cc11001100_click_5"
 ```
-表示此元素上有一个click类型的事件，所关联的函数的代码已经赋值到全局变量：
+表示此元素上有一个click类型的事件，这个事件所关联的回调函数的代码已经赋值到这个名称的全局变量上：
 ```text
 cc11001100_click_5
 ```
-上，切换到console，粘贴`cc11001100_click_5`回车：
+然后我们在开发者工具中切换到console，粘贴这个全局变量的名称`cc11001100_click_5`并回车，查看它的内存地址：
 ![](markdown-images/README_images/f12e305d.png)
-单击跟进去，直接定位到了登录按钮的click事件所绑定的代码：
+然后单击内存地址跟进去，就直接定位到了登录按钮的click事件所绑定的代码：
 ![](markdown-images/README_images/3409d649.png)
 往下拉，可以看到参数`mm`的加密方式：
 ![](markdown-images/README_images/0e8288d7.png)
-至此梳理完毕，以比较科学的方式很轻松就定位到了加密位置。
+至此梳理完毕，以比较科学的方式很轻松就定位到了加密位置，逆向不是体力活，这才是逆向的乐趣啊！
 
 # 五、原理概述
-通过hook jQuery的$.fn原型上的一些设置事件的方法来实现，目前支持的方法：
+通过hook jQuery的$.fn原型上的一些设置事件的方法来实现，目前支持的jQuery事件方法：
 
 ```text
-"click", "dblclick", "blur", "change", "contextmenu", "error", "focus",
-"focusin", "focusout", "hover", "holdReady", "proxy", "ready", "keydown", "keypress",
-"keyup", "live", "load", "mousedown", "mouseenter", "mouseleave", "mousemove", "mouseout",
-"mouseover", "mouseup"
+"click", 
+"dblclick", 
+"blur", 
+"change", 
+"contextmenu", 
+"error", 
+"focus",
+"focusin", 
+"focusout", 
+"hover", 
+"holdReady", 
+"proxy", 
+"ready", 
+"keydown", 
+"keypress",
+"keyup", 
+"live", 
+"load", 
+"mousedown", 
+"mouseenter", 
+"mouseleave", 
+"mousemove", 
+"mouseout",
+"mouseover", 
+"mouseup"
 "on"
 ```
 
@@ -61,8 +96,10 @@ cc11001100_click_5
 
 # 六、问题反馈
 
-如果发现有Hook不到的情况，请在[issue](https://github.com/CC11001100/jQuery-hook/issues)中反馈。
+- 如果发现有Hook不到的情况，请在[issue](https://github.com/CC11001100/jQuery-hook/issues)中反馈
+- 任何诉求与建议，请在[issue](https://github.com/CC11001100/jQuery-hook/issues)中反馈
+- 如果您觉得此项目有任何可改进的地方（不仅仅局限于文档、代码），您可以直接提pr，并assign给CC11001100
 
 # 七、TODO
-1. 对jQuery发出的请求进行监控和Hook 
-如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
+- 对jQuery发出的请求进行监控和Hook 
+  - 如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
