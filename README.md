@@ -45,7 +45,7 @@ https://github.com/JSREI/jQuery-hook/blob/main/jQuery-hook.js
 - 然后更新密码的mm input的值为加密后的密码的值
 - 然后提交表单，此时请求中的密码参数mm就是被加密后的值了 
 
-当然上面都是我们基于经验脑补出来的过程，具体还是得找到事件代码看一眼才靠谱，在Chrome中使用查看元素功能选中这个登录按钮，左侧会自动切换到Elements标签并定位到DOM元素的代码位置，然后在右侧切换到Event Listener标签查看此元素绑定的事件，发现是有一个click事件，只是代码位置是在jQuery里，不管它，大喜，于是跟进去：  
+当然上面都是我们基于经验脑补出来的过程，具体还是得找到事件代码看一眼才靠谱，在Chrome中使用查看元素功能选中这个登录按钮，左侧会自动切换到Elements标签并定位到DOM元素的代码位置，然后在右侧切换到Event Listener标签查看此元素绑定的事件，发现是有一个click事件，只是代码位置是在jQuery里，不必在意这些细节，大喜，于是跟进去：  
 
 ![](markdown-images/README_images/160b9e7a.png)  
 然后会陷入到jQuery的闭包中无法自拔，喜早了，这是因为jQuery自己封装了一套事件机制不太容易逆向：
