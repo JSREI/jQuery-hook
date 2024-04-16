@@ -245,13 +245,15 @@
      * @param eventFunction
      */
     function setEventFunctionNameToDomObjectAttribute(domObject, eventName, eventFunction) {
-        const {formatEventName, eventFuncGlobalName} = storeToWindow(eventName, eventFunction);
-        const attrName = `${globalUniqPrefix}-jQuery-${formatEventName}-event-function`;
-        if (domObject.attr(attrName)) {
-            domObject.attr(attrName + "-" + new Date().getTime(), eventFuncGlobalName);
-        } else {
-            domObject.attr(attrName, eventFuncGlobalName);
-        }
+        eventName.split(' ').map((eventName) => {
+            const {formatEventName, eventFuncGlobalName} = storeToWindow(eventName, eventFunction);
+            const attrName = `${globalUniqPrefix}-jQuery-${formatEventName}-event-function`;
+            if (domObject.attr(attrName)) {
+                domObject.attr(attrName + "-" + new Date().getTime(), eventFuncGlobalName);
+            } else {
+                domObject.attr(attrName, eventFuncGlobalName);
+            }
+        })
     }
 
     // ----------------------------------------------- -----------------------------------------------------------------
