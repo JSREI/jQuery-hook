@@ -115,6 +115,28 @@ cc11001100_click_5
 - 任何诉求与建议，请在[issue](https://github.com/JSREI/jQuery-hook/issues)中反馈
 - 如果您觉得此项目有任何可改进的地方（不仅局限于文档、代码）并且懒得说一堆话解释想直接上手改，欢迎提`pr`
 
-# 七、TODO
+# 七、Contributions
+
+<div>
+    <ul style="list-style: none; outside: none; margin:0px; padding: 0px;">
+        <li style="float: left; margin: 0 10px;">
+            <a href="https://github.com/codehz">
+                <img src="https://avatars.githubusercontent.com/u/13158903?v=4" style="width: 100px; border-radius: 100px;"/><br/>codehz
+            </a>
+        </li>
+        <li style="float: left; margin: 0 10px;">
+            <a href="https://github.com/dingcang">
+                <img src="https://avatars.githubusercontent.com/u/17334895?v=4" style="width: 100px; border-radius: 100px;"/><br/>CC11001100
+            </a>
+        </li>
+        <li style="float: left; margin: 0 10px;">
+            <a href="https://github.com/mic1on">
+                <img src="https://avatars.githubusercontent.com/u/62975647?v=4" style="width: 100px; border-radius: 100px;"/><br/>CC11001100
+            </a>
+        </li>
+    </ul>    
+</div>
+
+# 八、TODO
 - 对`jQuery`发出的请求进行监控和`Hook` 
   - 如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
