@@ -141,11 +141,17 @@ cc11001100_click_5
     </ul>    
 </div>
 
-# 八、TODO
-- 对`jQuery`发出的请求进行监控和`Hook` 
-  - 如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
 
-# 八、逆向技术交流群
+
+
+
+
+# 八、TODO
+
+- 对`jQuery`发出的请求进行监控和`Hook` 
+- 如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
+
+# 九、逆向技术交流群
 
 扫码加入逆向技术交流群：
 

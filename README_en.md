@@ -142,11 +142,17 @@ Each time an element is assigned an event, an additional attribute is created. C
     </ul>    
 </div>
 
+
+
+
+
+
 # VIII. TODO
+
 - Monitor and `Hook` requests issued by `jQuery`.
   - If you wish for additional features, please discuss in the [issue](https://github.com/CC11001100/jQuery-hook/issues) section.
 
-# VIII. Reverse Engineering Technical Discussion Group
+# IX. Reverse Engineering Technical Discussion Group
 
 Scan the QR code to join the reverse engineering technical discussion group:
 
