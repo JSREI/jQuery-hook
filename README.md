@@ -1,5 +1,7 @@
 # jQuery Hook
 
+GitHub Repository: https://github.com/JSREI/jQuery-hook
+
 简体中文 | [English](./README_en.md)
 
 # 一、此脚本的作用是什么？

@@ -1,5 +1,7 @@
 # jQuery Hook
 
+GitHub Repository: https://github.com/JSREI/jQuery-hook
+
 [简体中文](./README.md) | English
 
 # I. What is the purpose of this script?
