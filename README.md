@@ -1,5 +1,7 @@
 # jQuery Hook
 
+简体中文 | [English](./README_en.md)
+
 # 一、此脚本的作用是什么？
 
 用于快速定位使用`jQuery`绑定到`DOM`元素上的事件的代码的真实位置，辅助逆向分析。
