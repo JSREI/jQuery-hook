@@ -142,3 +142,18 @@ cc11001100_click_5
 # 八、TODO
 - 对`jQuery`发出的请求进行监控和`Hook` 
   - 如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
+
+# 八、逆向技术交流群
+
+扫码加入逆向技术交流群：
+
+<img src="./README.assets/image-20241016230653669.png" style="width: 400px">
+
+如群二维码过期，可以加我个人微信，发送【逆向群】拉你进群：
+
+<img src="./README.assets/image-20231030132026541-7614065.png" style="width: 400px">
+
+[点此](https://t.me/jsreijsrei)或扫码加入TG交流群：
+
+<img src="./README.assets/image-20241016231143315.png" style="width: 400px">
+

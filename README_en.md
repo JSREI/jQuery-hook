@@ -143,3 +143,17 @@ Each time an element is assigned an event, an additional attribute is created. C
 # VIII. TODO
 - Monitor and `Hook` requests issued by `jQuery`.
   - If you wish for additional features, please discuss in the [issue](https://github.com/CC11001100/jQuery-hook/issues) section.
+
+# VIII. Reverse Engineering Technical Discussion Group
+
+Scan the QR code to join the reverse engineering technical discussion group:
+
+<img src="./README.assets/image-20241016230653669.png" style="width: 400px">
+
+If the group QR code has expired, you can add my personal WeChat, send "Reverse Engineering Group" and I will invite you to the group:
+
+<img src="./README.assets/image-20231030132026541-7614065.png" style="width: 400px">
+
+[Click here](https://t.me/jsreijsrei) or scan the QR code to join the TG discussion group:
+
+<img src="./README.assets/image-20241016231143315.png" style="width: 400px">
