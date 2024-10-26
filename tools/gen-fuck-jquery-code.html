@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>这个页面用于生成jQuery相关的混淆视听的代码</title>
+</head>
+<body>
+
+<script>
+  (function() {
+    for (var i = 0; i < 100; i++) { // 假设我们需要1000个这样的块来达到1万行，这里仅展示100个
+      // 创建一个随机的选择器和操作
+      var randomSelector = '.' + Math.random().toString(36).substring(7);
+      var randomDataAttr = 'data-' + Math.random().toString(36).substring(7);
+      var randomValue = Math.random().toString(36).substring(7);
+
+      // 混淆代码块
+      var codeBlock = `
+            (function() {
+                $(document).ready(function() {
+                    var $el =$('${randomSelector}');
+                    $el.attr('${randomDataAttr}', '${randomValue}');
+                    $el.css('display', 'none').css('display', '');
+                    $el.addClass('${randomValue}').removeClass('${randomValue}');
+                    $el.data('${randomDataAttr}', '${randomValue}').data('${randomDataAttr}', '');
+                    $el.animate({opacity: 1}, 0).animate({opacity: 1}, 0);
+                    $el.each(function() {
+                        var $this =$(this);
+                        var val = $this.data('${randomDataAttr}');
+                        if (val === '${randomValue}') {
+                            $this.data('${randomDataAttr}', '');
+                        }
+                    });
+                });
+            })();
+        `;
+      // 将混淆代码块添加到总代码中
+      document.write(`<pre>${codeBlock}</pre>`)
+    }
+  })();
+</script>
+</body>
+</html>
