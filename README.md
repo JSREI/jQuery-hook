@@ -129,7 +129,7 @@ cc11001100_click_5
 - 如果希望有其它功能在[issue](https://github.com/CC11001100/jQuery-hook/issues)区留言讨论 
 
 
-# 八、Contributions
+# 八、Contributors
 
 <img src="https://contrib.rocks/image?repo=JSREI/jQuery-hook" />
 
