@@ -131,7 +131,7 @@ cc11001100_click_5
 
 # 八、Contributors
 
-<img src="https://contrib.rocks/image?repo=JSREI/jQuery-hook" />
+<img src="https://contrib.nn.ci/api?repo=JSREI/jQuery-hook" />
 
 # 九、Star History
 
