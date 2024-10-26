@@ -130,7 +130,7 @@ Each time an element is assigned an event, an additional attribute is created. C
 - Monitor and `Hook` requests issued by `jQuery`.
   - If you wish for additional features, please discuss in the [issue](https://github.com/CC11001100/jQuery-hook/issues) section.
 
-# VIII、Contributions
+# VIII、Contributors
 
 <img src="https://contrib.rocks/image?repo=JSREI/jQuery-hook" />
 
