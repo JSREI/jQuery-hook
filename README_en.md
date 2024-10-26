@@ -132,7 +132,7 @@ Each time an element is assigned an event, an additional attribute is created. C
 
 # VIII、Contributors
 
-<img src="https://contrib.rocks/image?repo=JSREI/jQuery-hook" />
+<img src="https://contrib.nn.ci/api?repo=JSREI/jQuery-hook" />
 
 # IX、Star History
 
