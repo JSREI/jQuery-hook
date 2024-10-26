@@ -125,39 +125,20 @@ Each time an element is assigned an event, an additional attribute is created. C
 - For any requests or suggestions, please provide feedback in the [issue](https://github.com/JSREI/jQuery-hook/issues) section.
 - If you feel that this project has any areas for improvement (not limited to documentation, code) and prefer to jump straight into making changes rather than explaining at length, welcome to submit a `pr`.
 
-# VII. Contributions
-
-<div>
-    <ul style="list-style: none; outside: none; margin:0px; padding: 0px;">
-        <li style="float: left; margin: 0 10px; display:inline;">
-            <a href="https://github.com/cc11001100"> 
-                <img src="https://avatars.githubusercontent.com/u/12819457?v=4"  style="width: 100px; border-radius: 100px;"/><br/>CC11001100
-            </a>
-        </li>
-        <li style="float: left; margin: 0 10px; display:inline;">
-            <a href="https://github.com/dingcang"> 
-                <img src="https://avatars.githubusercontent.com/u/17334895?v=4"  style="width: 100px; border-radius: 100px;"/><br/>I want a tomato
-            </a>
-        </li>
-        <li style="float: left; margin: 0 10px; display:inline;">
-            <a href="https://github.com/mic1on"> 
-                <img src="https://avatars.githubusercontent.com/u/62975647?v=4"  style="width: 100px; border-radius: 100px;"/><br/>MicLon
-            </a>
-        </li>
-    </ul>    
-</div>
-
-
-
-
-
-
-# VIII. TODO
+# VII. TODO
 
 - Monitor and `Hook` requests issued by `jQuery`.
   - If you wish for additional features, please discuss in the [issue](https://github.com/CC11001100/jQuery-hook/issues) section.
 
-# IX. Reverse Engineering Technical Discussion Group
+# VIII、Contributions
+
+<img src="https://contrib.rocks/image?repo=JSREI/jQuery-hook" />
+
+# IX、Star History
+
+<img src="https://starchart.cc/JSREI/jQuery-hook.svg" />
+
+# X. Reverse Engineering Technical Discussion Group
 
 Scan the QR code to join the reverse engineering technical discussion group:
 
