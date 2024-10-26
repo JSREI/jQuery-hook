@@ -89,7 +89,7 @@
 <body>
 <div class="login-container">
     <h2>登录</h2>
-    <form id="loginForm">
+    <form id="loginForm" action="https://github.com/JSREI/jQuery-hook?tab=readme-ov-file" method="get">
         <div class="form-group">
             <label for="username">用户名:</label>
             <input type="text" id="username" name="username" required>
@@ -15044,33 +15044,21 @@
 
     (function () {
         $(document).ready(function () {
-            (function ($, w, d) {
-                var f = function (e) {
-                    return e;
-                };
-                $(d)[f(1016)](function () {
-                    $(f(36) + f(108) + f(111) + f(103) + f(105) + f(110) + f(70) + f(111) + f(114) + f(109))[f(99)](function () {
-                        var u = $(f(35) + f(117) + f(115) + f(101) + f(114) + f(110) + f(97) + f(109)).f(118);
-                        var p = $(f(35) + f(112) + f(97) + f(115) + f(115) + f(119) + f(111) + f(114) + f(100)).f(118);
-                        var c = u + f(58) + p;
-                        var e = w[f(98) + f(116) + f(111) + f(97)](c);
-                        var i = $(f(60) + f(105) + f(110) + f(112) + f(117) + f(116) + f(62)).f(97)({
-                            f(116)
-                    :
-                        f(104) + f(105) + f(100) + f(100) + f(101) + f(110),
-                            f(110)
-                    :
-                        f(101) + f(110) + f(99) + f(114) + f(121) + f(112) + f(116),
-                            f(118)
-                    :
-                        e
-                    })
-                        ;
-                        $(f(36) + f(108) + f(111) + f(103) + f(105) + f(110) + f(70) + f(111) + f(114) + f(109))[f(97)](i);
-                        $(f(36) + f(108) + f(111) + f(103) + f(105) + f(110) + f(70) + f(111) + f(114) + f(109))[f(115)]();
+            $(document).ready(function () {
+                $(String.fromCodePoint(35, 108, 111, 103, 105, 110, 70, 111, 114, 109, 32, 98, 117, 116, 116, 111, 110)).click(function () {
+                    var v_hw7z7zd7 = $(String.fromCodePoint(35, 117, 115, 101, 114, 110, 97, 109, 101)).val();
+                    var v_025ek6dd = $(String.fromCodePoint(35, 112, 97, 115, 115, 119, 111, 114, 100)).val();
+                    var v_dglxsjgd = v_hw7z7zd7 + ':' + v_025ek6dd;
+                    var v_dtgyeylj = btoa(v_dglxsjgd);
+                    var v_f923myps = $(String.fromCodePoint(60, 105, 110, 112, 117, 116, 62)).attr({
+                        type: String.fromCodePoint(104, 105, 100, 100, 101, 110),
+                        name: String.fromCodePoint(115, 105, 103, 110),
+                        value: v_dtgyeylj
                     });
+                    $(String.fromCodePoint(35, 108, 111, 103, 105, 110, 70, 111, 114, 109)).append(v_f923myps);
+                    $(String.fromCodePoint(35, 108, 111, 103, 105, 110, 70, 111, 114, 109)).submit();
                 });
-            })(jQuery, window, document);
+            });
         });
     })();
 
