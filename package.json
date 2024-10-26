@@ -1,0 +1,20 @@
+{
+  "name": "jquery-hook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jQuery-hook.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JSREI/jQuery-hook.git"
+  },
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/generator": "^7.26.0",
+    "@babel/traverse": "^7.25.9",
+    "@babel/types": "^7.26.0"
+  }
+}

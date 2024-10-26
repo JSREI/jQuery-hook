@@ -1,7 +1,4 @@
-// 这里是提交表单的字符串，大模型混淆代码的Prompt：
-//
-// 把下面所有的字面值常量都替换为String.fromCharCode的加密形式
-// 现在深呼吸一口气，一步一步的思考解决这个问题
+// 这里是提交表单的原始代码，对其进行简单的混淆以防直接搜索就能定位让读者觉得太无聊
 $(document).ready(function() {
     $('#loginForm button').click(function() {
         var username = $('#username').val();
@@ -10,7 +7,7 @@ $(document).ready(function() {
         var encoded = btoa(combined);
         var encryptInput = $('<input>').attr({
             type: 'hidden',
-            name: 'encrypt',
+            name: 'sign',
             value: encoded
         });
         $('#loginForm').append(encryptInput);
