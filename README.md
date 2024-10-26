@@ -37,6 +37,9 @@ https://github.com/JSREI/jQuery-hook/blob/main/jQuery-hook.js
 注意此种方式后续此脚本有版本更新油猴插件不会自动提醒升级，不过您可以`star`/`watch`本仓库关注后续更新。
 
 # 四、使用案例
+
+注意：示例网站已经无法访问，可以访问靶场练习，请移步此篇文章：https://github.com/JSREI/jQuery-hook/tree/main/goat/form-submit-sign
+
 随便找一个使用`jQuery`开发的网站，比如这个：  
 
 [http://wap.wfu.edu.cn:8001/authz/login/slogin](http://wap.wfu.edu.cn:8001/authz/login/slogin)
