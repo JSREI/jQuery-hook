@@ -1,5 +1,7 @@
 # jQuery Hook
 
+官网：https://jsrei.github.io/jQuery-hook/
+
 GitHub Repository: https://github.com/JSREI/jQuery-hook
 
 简体中文 | [English](./README_en.md)
