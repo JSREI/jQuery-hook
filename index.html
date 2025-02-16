@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Hook - 现代逆向工程工具包</title>
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/JSREI/jQuery-hook@main/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #42b983;
+            --secondary-color: #2c3e50;
+            --text-color: #34495e;
+            --background: #f8f9fa;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 动态粒子背景 */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* 玻璃效果导航栏 */
+        .glass-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #42b983 0%, #35495e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .gradient-btn {
+            background: linear-gradient(135deg, #42b983 0%, #35495e 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .gradient-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(66, 185, 131, 0.3);
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .code-snippet::before {
+            content: 'EXAMPLE';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: linear-gradient(135deg, #42b983 0%, #35495e 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .social-link {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #42b983;
+            transform: translateY(-3px);
+        }
+
+        .nav-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #42b983;
+            transform: translateY(-2px);
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+        }
+
+    </style>
+    <style>
+        /* 新增样式 */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .gif-placeholder {
+            background: #f0f0f0;
+            border-radius: 12px;
+            height: 300px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .stats-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(66, 185, 131, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+        }
+
+        .value-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .value-list li {
+            background: rgba(66, 185, 131, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #42b983;
+            line-height: 1.6;
+        }
+    </style>
+    <style>
+        .demo-video {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 4rem auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 80%;
+            display: block;
+        }
+
+        .demo-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<!-- 粒子背景 -->
+<div id="particles-js"></div>
+
+<!-- 导航栏 -->
+<nav class="glass-nav">
+    <div class="container">
+        <div style="padding: 1rem 0; display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="Logo" style="height: 40px; background-color: transparent;">
+                <h3 style="background: linear-gradient(135deg, #42b983 0%, #35495e 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;">
+                    jQuery Hook
+                </h3>
+            </div>
+            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="https://github.com/JSREI/jQuery-hook" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i>
+                    <span id="github-stars">0</span>
+                </a>
+                <a href="https://greasyfork.org/zh-CN/scripts/435556-jquery-hook" target="_blank" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span id="greasyfork-installs">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- 中文内容 -->
+
+<div>
+    <header>
+        <div class="container">
+            <h1 class="hero-title">逆向工程从未如此优雅</h1>
+            <p class="hero-subtitle">穿透jQuery事件迷雾，直达原生代码核心</p>
+            <div style="margin-top: 3rem;">
+                <a href="https://greasyfork.org/zh-CN/scripts/435556-jquery-hook" class="gradient-btn" target="_blank">
+                    <i class="fas fa-download"></i>
+                    立即安装
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 各功能区块 -->
+    <main class="container">
+        <section class="feature-card" id="about">
+            <h2>🎯 核心功能</h2>
+            <ul class="value-list">
+                <li>原生事件定位 - 穿透jQuery封装直达原生代码</li>
+                <li>加密逻辑追踪 - 快速定位加密函数调用栈</li>
+                <li>动态事件追踪 - 实时监控DOM事件绑定</li>
+            </ul>
+            <div class="gif-placeholder">
+                【此处为GIF预留位置】
+            </div>
+        </section>
+
+        <section class="feature-card" id="installation">
+            <h2>🚀 快速安装</h2>
+            <div class="stats-container">
+                <div class="stats-item">
+                    <i class="fas fa-download"></i>
+                    <span>已经有 </span>
+                    <span id="greasyfork-counter">数据获取中...</span>
+                    <span> 人安装了此脚本</span>
+                </div>
+                <a href="https://greasyfork.org/zh-CN/scripts/435556-jquery-hook"
+                   class="gradient-btn"
+                   style="margin-left: auto"
+                   target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    前往油猴商店
+                </a>
+            </div>
+        </section>
+        <section class="feature-card" id="demo">
+            <h2>🔍 演示视频</h2>
+            <!-- B站演示视频 -->
+            <div class="video-container demo-video shadow-lg rounded-3 overflow-hidden">
+                <iframe src="//player.bilibili.com/player.html?bvid=BV12BrkYGEHv&high_quality=1&autoplay=0"
+                        scrolling="no"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        width="1280"
+                        height="720"
+                        loading="lazy">
+                </iframe>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- 页脚 -->
+<footer style="background: var(--secondary-color); padding: 3rem 0; margin-top: 5rem;">
+    <div class="container" style="text-align: center; color: white;">
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>© 2024 <a href="https://github.com/JSREI/jQuery-hook" target="_blank"
+                     style="color: white; text-decoration: underline;">jQuery Hook</a> - 让逆向工程回归优雅本质</p>
+    </div>
+</footer>
+
+<!-- 粒子动画 -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    particlesJS('particles-js', {
+        particles: {
+            number: {value: 80},
+            color: {value: '#42b983'},
+            shape: {type: 'circle'},
+            opacity: {value: 0.5},
+            size: {value: 3},
+            move: {
+                enable: true,
+                speed: 2,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'out',
+                bounce: false,
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: {enable: true, mode: 'repulse'},
+                onclick: {enable: true, mode: 'push'},
+                resize: true
+            }
+        }
+    });
+
+    // 获取GitHub star数
+    fetch('https://api.github.com/repos/JSREI/jQuery-hook')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            const stars = data.stargazers_count;
+            document.getElementById('github-stars').textContent = stars;
+        })
+        .catch(error => console.error('Error fetching GitHub stars:', error));
+
+    // 处理Greasy Fork安装量
+    fetch('https://img.shields.io/greasyfork/dt/435556.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            const installs = data.message;
+            document.getElementById('greasyfork-installs').textContent = installs;
+            document.getElementById('greasyfork-counter').textContent = installs;
+        })
+        .catch(error => console.error('Error fetching Greasy Fork installs:', error));
+
+</script>
+</body>
+</html>
